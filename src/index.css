@@ -17,11 +17,11 @@
     @apply cursor-pointer;
   }
   .controls {
-    @apply absolute top-24 left-16 z-20 text-white;
+    @apply absolute top-20 left-16 z-20 text-white;
   }
 
   .controls-right {
-    @apply absolute top-24 right-16 z-20 text-white;
+    @apply absolute top-20 right-16 z-20 text-white;
   }
 
   .controls-heading {
