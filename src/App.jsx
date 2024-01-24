@@ -1,3 +1,4 @@
+import Leftbar from "./components/Leftbar";
 import Navbar from "./components/Navbar";
 import WebGLCanvas from "./components/WebGLCanvas";
 
@@ -6,6 +7,7 @@ function App() {
     <div>
       <WebGLCanvas />
       <Navbar />
+      <Leftbar />
     </div>
   );
 }

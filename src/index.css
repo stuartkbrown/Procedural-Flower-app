@@ -16,4 +16,52 @@
     @apply px-4;
     @apply cursor-pointer;
   }
+  .controls {
+    @apply absolute top-24 left-16 z-20 text-white;
+  }
+
+  .controls-right {
+    @apply absolute top-24 right-16 z-20 text-white;
+  }
+
+  .controls-heading {
+    @apply bg-white text-black text-lg px-4 py-2 rounded mb-4;
+  }
+
+  .control-group {
+    @apply flex items-center mb-4;
+  }
+
+  .control-group label {
+    @apply mr-4;
+  }
+
+  .control-group input {
+    @apply mr-4 w-32; /* Adjust the width as needed */
+  }
+
+  .control-group input[type="checkbox"] {
+    @apply w-6 h-6 mr-2; /* Adjust the width and height as needed */
+  }
+
+  .control-group output {
+    @apply w-8 pr-2; /* Adjust the width and padding as needed */
+  }
+
+  button {
+    @apply bg-blue-500 text-white px-4 py-2 text-base rounded border-none cursor-pointer transition duration-500 ease-in-out mr-4;
+  }
+
+  button:hover {
+    @apply bg-blue-800; /* Adjust the hover background color as needed */
+  }
+
+  /* Styles for dropdown menus */
+  select {
+    @apply bg-blue-500 text-white px-4 py-2 text-base rounded border-none cursor-pointer transition duration-500 ease-in-out mr-4;
+  }
+
+  select:hover {
+    @apply bg-blue-800; /* Adjust the hover background color as needed */
+  }
 }
