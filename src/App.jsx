@@ -1,16 +1,10 @@
-import Leftbar from "./components/Leftbar";
-import Navbar from "./components/Navbar";
-import Rightbar from "./components/Rightbar";
-import WebGLCanvas from "./components/WebGLCanvas";
+import ProceduralFlower from "./pages/ProceduralFlower";
 
 function App() {
   return (
-    <div>
-      <WebGLCanvas />
-      <Navbar />
-      <Leftbar />
-      <Rightbar />
-    </div>
+    <>
+      <ProceduralFlower />
+    </>
   );
 }
 
