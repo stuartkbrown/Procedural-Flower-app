@@ -1,11 +1,15 @@
 import React from "react";
+import Button from "./Button";
 
 const Leftbar = () => {
+  const handleClick = () => {
+    window.location.reload();
+  };
   return (
     <div class="controls">
       <div class="controls-heading">Controls</div>
       <div class="control-group">
-        <button id="resetDefaultButton">Reset Default</button>
+        <Button onClick={handleClick}>Reset Default</Button>
         <button id="resetCameraButton">Reset Camera</button>
       </div>
       <div class="control-group">

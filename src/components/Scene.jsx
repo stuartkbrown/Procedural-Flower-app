@@ -16,7 +16,6 @@ const Scene = () => {
         gl={{ antialias: false, alpha: false, powerPreference: "default" }}
         flat
       >
-        <PerspectiveCamera makeDefault position={[0, 0, 550]} />
         {/* <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />*/}
         <FlowerGeometry parameters={flowerParams} />
