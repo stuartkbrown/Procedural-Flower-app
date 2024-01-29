@@ -8,8 +8,8 @@ export const FlowerParametersProvider = ({ children }) => {
   const [flowerParams, setFlowerParams] = useState({
     flowerColour1: "#ff0000",
     flowerColour2: "#0000ff",
-    verticalResolution: 10,
-    radialResolution: 60,
+    verticalResolution: 60,
+    radialResolution: 360,
     petalNumber: 5,
     diameter: 180,
     petalLength: 50,

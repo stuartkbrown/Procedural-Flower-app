@@ -1,107 +1,104 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
 import { DoubleSide } from "three";
 import * as THREE from "three";
 
 const FlowerGeometry = ({ parameters }) => {
-  const positions = useRef([]);
-  const colors = useRef([]);
-  const indices = useRef([]);
+  const geometryRef = useRef();
 
-  useMemo(() => {
-    positions.current = calculatePositions(parameters);
-    colors.current = calculateColors(parameters);
-    indices.current = calculateIndices(parameters);
+  const positions = useMemo(() => calculatePositions(parameters), [parameters]);
+  const colors = useMemo(() => calculateColors(parameters), [parameters]);
+  const indices = useMemo(() => calculateIndices(parameters), [parameters]);
+
+  useEffect(() => {
+    forceUpdate();
+  }, []);
+
+  const forceUpdate = () => {
+    if (geometryRef.current) {
+      geometryRef.current.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      );
+      geometryRef.current.setAttribute(
+        "color",
+        new THREE.BufferAttribute(colors, 3)
+      );
+      geometryRef.current.setIndex(new THREE.BufferAttribute(indices, 1));
+    }
+  };
+
+  // Update geometry's buffer attributes when parameters change
+  useEffect(() => {
+    forceUpdate();
   }, [parameters]);
 
   return (
     <mesh>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          array={positions.current}
-          count={positions.current.length / 3}
-          itemSize={3}
-        />
-        <bufferAttribute
-          attach="attributes-color"
-          array={colors.current}
-          count={colors.current.length / 3}
-          itemSize={3}
-        />
-        <bufferAttribute
-          attach="index"
-          array={indices.current}
-          count={indices.current.length}
-          itemSize={1}
-        />
-      </bufferGeometry>
-      <meshStandardMaterial vertexColors side={DoubleSide} />
+      <bufferGeometry ref={geometryRef} />
+      <meshBasicMaterial vertexColors side={DoubleSide} />
     </mesh>
   );
 };
 
-// Function to calculate vertex positions based on parameters
-const calculatePositions = (parameters) => {
+function calculatePositions(parameters) {
+  const { verticalResolution, radialResolution } = parameters;
   const positions = [];
 
-  for (let theta = 0; theta < parameters.verticalResolution; theta += 1) {
-    for (let phi = 0; phi < parameters.radialResolution; phi += 1) {
+  for (let theta = 0; theta < verticalResolution; theta++) {
+    for (let phi = 0; phi < radialResolution; phi++) {
       const vertex = calculateVertex(theta, phi, parameters);
       positions.push(vertex.x, vertex.y, vertex.z);
     }
   }
 
   return new Float32Array(positions);
-};
+}
 
-// Function to calculate vertex colors based on parameters
-const calculateColors = (parameters) => {
+function calculateColors(parameters) {
+  const { verticalResolution, flowerColour1, flowerColour2 } = parameters;
   const colors = [];
 
-  const flowerColor1 = new THREE.Color(parameters.flowerColour1);
-  const flowerColor2 = new THREE.Color(parameters.flowerColour2);
+  const flowerColor1 = new THREE.Color(flowerColour1);
+  const flowerColor2 = new THREE.Color(flowerColour2);
 
-  for (let theta = 0; theta < parameters.verticalResolution; theta += 1) {
-    for (let phi = 0; phi < parameters.radialResolution; phi += 1) {
-      const t = theta / parameters.verticalResolution; // Normalize phi to [0, 1]
+  for (let theta = 0; theta < verticalResolution; theta++) {
+    const t = theta / verticalResolution; // Normalize theta to [0, 1]
+
+    for (let phi = 0; phi < parameters.radialResolution; phi++) {
       const lerpedColor = flowerColor1.clone().lerp(flowerColor2, t);
       colors.push(lerpedColor.r, lerpedColor.g, lerpedColor.b);
     }
   }
 
   return new Float32Array(colors);
-};
+}
 
-// Function to calculate indices based on parameters
-const calculateIndices = (parameters) => {
+function calculateIndices(parameters) {
+  const { verticalResolution, radialResolution } = parameters;
   const indices = [];
 
-  for (let theta = 0; theta < parameters.verticalResolution - 1; theta += 1) {
-    for (let phi = 0; phi < parameters.radialResolution - 1; phi += 1) {
-      const v1 = theta * parameters.radialResolution + phi;
-      const v2 = (theta + 1) * parameters.radialResolution + phi;
-      const v3 = (theta + 1) * parameters.radialResolution + phi + 1;
-      const v4 = theta * parameters.radialResolution + phi + 1;
+  for (let theta = 0; theta < verticalResolution - 1; theta++) {
+    for (let phi = 0; phi < radialResolution - 1; phi++) {
+      const v1 = theta * radialResolution + phi;
+      const v2 = (theta + 1) * radialResolution + phi;
+      const v3 = (theta + 1) * radialResolution + phi + 1;
+      const v4 = theta * radialResolution + phi + 1;
 
       indices.push(v1, v2, v3);
       indices.push(v1, v3, v4);
     }
 
-    const lastColumnV1 =
-      theta * parameters.radialResolution + parameters.radialResolution - 1;
-    const lastColumnV2 =
-      (theta + 1) * parameters.radialResolution +
-      parameters.radialResolution -
-      1;
-    const firstColumnV1 = theta * parameters.radialResolution;
-    const firstColumnV2 = (theta + 1) * parameters.radialResolution;
+    const lastColumnV1 = theta * radialResolution + radialResolution - 1;
+    const lastColumnV2 = (theta + 1) * radialResolution + radialResolution - 1;
+    const firstColumnV1 = theta * radialResolution;
+    const firstColumnV2 = (theta + 1) * radialResolution;
 
     indices.push(lastColumnV1, lastColumnV2, firstColumnV1);
     indices.push(lastColumnV2, firstColumnV1, firstColumnV2);
   }
 
   return new Uint16Array(indices);
-};
+}
 
 function calculateVertex(theta, phi, parameters) {
   const normalizedPhi = (phi / parameters.radialResolution) * 2 * Math.PI;
@@ -137,7 +134,6 @@ function calculateVertex(theta, phi, parameters) {
   return new THREE.Vector3(x, y, z);
 }
 
-// Math functions
 function vShape(A, r, a, b) {
   return (
     A *

@@ -8,8 +8,8 @@ import Rightbar from "../components/Rightbar";
 const Main = () => {
   return (
     <div>
-      <Navbar />
       <FlowerParametersProvider>
+        <Navbar />
         <Scene />
         <Leftbar />
         <Rightbar />

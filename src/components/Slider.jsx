@@ -2,7 +2,7 @@ import React from "react";
 
 const Slider = ({ id, label, value, setValue, min, max, step }) => {
   const handleChange = (event) => {
-    const newValue = event.target.value;
+    const newValue = parseFloat(event.target.value);
     setValue(newValue);
   };
 
