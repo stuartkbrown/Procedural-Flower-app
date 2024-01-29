@@ -1,16 +1,16 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { FlowerParametersProvider } from "../components/Context";
-import WebGLCanvas from "../components/WebGLCanvas";
+import Scene from "../components/Scene";
 import Leftbar from "../components/Leftbar";
 import Rightbar from "../components/Rightbar";
 
-const ProceduralFlower = () => {
+const Main = () => {
   return (
     <div>
       <Navbar />
       <FlowerParametersProvider>
-        <WebGLCanvas />
+        <Scene />
         <Leftbar />
         <Rightbar />
       </FlowerParametersProvider>
@@ -18,4 +18,4 @@ const ProceduralFlower = () => {
   );
 };
 
-export default ProceduralFlower;
+export default Main;

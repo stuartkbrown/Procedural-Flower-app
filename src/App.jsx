@@ -1,9 +1,9 @@
-import ProceduralFlower from "./pages/ProceduralFlower";
+import Main from "./pages/Main";
 
 function App() {
   return (
     <>
-      <ProceduralFlower />
+      <Main />
     </>
   );
 }

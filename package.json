@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.96.5",
+    "@react-three/fiber": "^8.15.15",
     "autoprefixer": "^10.4.17",
     "firebase": "^10.7.2",
     "gsap": "^3.12.5",
