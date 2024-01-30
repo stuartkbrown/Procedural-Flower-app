@@ -34,3 +34,23 @@ export const FlowerParametersProvider = ({ children }) => {
     </FlowerParametersContext.Provider>
   );
 };
+
+const MaterialContext = createContext();
+
+export const MaterialProvider = ({ children }) => {
+  const [materialType, setMaterialType] = useState("points");
+
+  return (
+    <MaterialContext.Provider value={{ materialType, setMaterialType }}>
+      {children}
+    </MaterialContext.Provider>
+  );
+};
+
+export const useMaterial = () => {
+  const context = useContext(MaterialContext);
+  if (!context) {
+    throw new Error("useMaterialType must be used within a MaterialProvider");
+  }
+  return context;
+};

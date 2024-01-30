@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import MaterialDropdown from "./MaterialDropdown";
 
 const Leftbar = () => {
   const handleClick = () => {
@@ -22,14 +23,7 @@ const Leftbar = () => {
         <input type="color" id="backgroundColorPicker" />
       </div>
       <div class="control-group">
-        <label>Display Mode</label>
-        <select id="displayModeDropdown">
-          <option value="triangles">Triangles</option>
-          <option value="points">Points</option>
-          <option value="wireframe">Wireframe</option>
-          <option value="phong">Phong</option>
-          <option value="standard">Standard</option>
-        </select>
+        <MaterialDropdown />
       </div>
       <div class="control-group">
         <button id="toggleAxesButton">Cartesian Axes</button>

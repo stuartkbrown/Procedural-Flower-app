@@ -1,19 +1,15 @@
-import React, { useRef, useEffect, useMemo } from "react";
+import React, { useRef, useEffect, useMemo, useCallback } from "react";
 import { DoubleSide } from "three";
 import * as THREE from "three";
 
-const FlowerGeometry = ({ parameters }) => {
+const FlowerGeometry = ({ parameters, materialType }) => {
   const geometryRef = useRef();
 
   const positions = useMemo(() => calculatePositions(parameters), [parameters]);
   const colors = useMemo(() => calculateColors(parameters), [parameters]);
   const indices = useMemo(() => calculateIndices(parameters), [parameters]);
 
-  useEffect(() => {
-    forceUpdate();
-  }, []);
-
-  const forceUpdate = () => {
+  const forceUpdate = useCallback(() => {
     if (geometryRef.current) {
       geometryRef.current.setAttribute(
         "position",
@@ -25,18 +21,48 @@ const FlowerGeometry = ({ parameters }) => {
       );
       geometryRef.current.setIndex(new THREE.BufferAttribute(indices, 1));
     }
-  };
+  }, [positions, colors, indices]);
 
-  // Update geometry's buffer attributes when parameters change
   useEffect(() => {
     forceUpdate();
-  }, [parameters]);
+  }, [parameters, materialType]);
 
+  let material;
+  switch (materialType) {
+    case "triangles":
+      material = <meshBasicMaterial vertexColors side={DoubleSide} />;
+      break;
+    case "points":
+      material = <pointsMaterial vertexColors />;
+      break;
+    case "wireframe":
+      material = <meshBasicMaterial wireframe vertexColors />;
+      break;
+    case "phong":
+      material = <meshPhongMaterial vertexColors side={DoubleSide} />;
+      break;
+    case "standard":
+      material = <meshStandardMaterial vertexColors side={DoubleSide} />;
+      break;
+    default:
+      material = <meshBasicMaterial vertexColors side={DoubleSide} />;
+  }
+
+  // Use <points> for points material
   return (
-    <mesh>
-      <bufferGeometry ref={geometryRef} />
-      <meshBasicMaterial vertexColors side={DoubleSide} />
-    </mesh>
+    <group>
+      {materialType === "points" ? (
+        <points>
+          <bufferGeometry ref={geometryRef} />
+          {material}
+        </points>
+      ) : (
+        <mesh>
+          <bufferGeometry ref={geometryRef} />
+          {material}
+        </mesh>
+      )}
+    </group>
   );
 };
 
