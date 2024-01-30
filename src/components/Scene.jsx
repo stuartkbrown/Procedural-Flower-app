@@ -1,12 +1,17 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useFlowerParameters, useMaterial } from "./Context";
 import { Canvas } from "@react-three/fiber";
-import { Stats, OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import {
+  Stats,
+  OrbitControls,
+  GizmoHelper,
+  GizmoViewport,
+} from "@react-three/drei";
 import FlowerGeometry from "./FlowerGeometry";
 
 const Scene = () => {
-  const { flowerParams, updateParam } = useFlowerParameters();
-  const { materialType, setMaterialType } = useMaterial();
+  const { flowerParams } = useFlowerParameters();
+  const { materialType } = useMaterial();
 
   return (
     <div class="webgl" className="absolute top-0 left-0 z-10 w-full h-full">
@@ -18,8 +23,11 @@ const Scene = () => {
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
         <FlowerGeometry parameters={flowerParams} materialType={materialType} />
-        <OrbitControls enableDamping dampingFactor={0.08} />
+        <GizmoHelper alignment="bottom-left" margin={[80, 80]}>
+          <GizmoViewport />
+        </GizmoHelper>
         <Stats />
+        <OrbitControls enableDamping dampingFactor={0.08} />
       </Canvas>
     </div>
   );

@@ -38,7 +38,7 @@ export const FlowerParametersProvider = ({ children }) => {
 const MaterialContext = createContext();
 
 export const MaterialProvider = ({ children }) => {
-  const [materialType, setMaterialType] = useState("points");
+  const [materialType, setMaterialType] = useState("triangles");
 
   return (
     <MaterialContext.Provider value={{ materialType, setMaterialType }}>
