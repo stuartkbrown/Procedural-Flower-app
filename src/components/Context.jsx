@@ -1,10 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
 
 const FlowerParametersContext = createContext();
+const MaterialContext = createContext();
+const BackgroundColourContext = createContext();
 
 export const useFlowerParameters = () => useContext(FlowerParametersContext);
+export const useMaterial = () => useContext(MaterialContext);
+export const useBackgroundColour = () => useContext(BackgroundColourContext);
 
-export const FlowerParametersProvider = ({ children }) => {
+export const MainProvider = ({ children }) => {
   const [flowerParams, setFlowerParams] = useState({
     flowerColour1: "#ff0000",
     flowerColour2: "#0000ff",
@@ -21,6 +25,10 @@ export const FlowerParametersProvider = ({ children }) => {
     bumpNumber: 10,
   });
 
+  const [materialType, setMaterialType] = useState("triangles");
+
+  const [backgroundColour, setBackgroundColour] = useState("#000000");
+
   const updateParam = (paramName, value) => {
     setFlowerParams((prevState) => ({
       ...prevState,
@@ -30,27 +38,13 @@ export const FlowerParametersProvider = ({ children }) => {
 
   return (
     <FlowerParametersContext.Provider value={{ flowerParams, updateParam }}>
-      {children}
+      <MaterialContext.Provider value={{ materialType, setMaterialType }}>
+        <BackgroundColourContext.Provider
+          value={{ backgroundColour, setBackgroundColour }}
+        >
+          {children}
+        </BackgroundColourContext.Provider>
+      </MaterialContext.Provider>
     </FlowerParametersContext.Provider>
   );
-};
-
-const MaterialContext = createContext();
-
-export const MaterialProvider = ({ children }) => {
-  const [materialType, setMaterialType] = useState("triangles");
-
-  return (
-    <MaterialContext.Provider value={{ materialType, setMaterialType }}>
-      {children}
-    </MaterialContext.Provider>
-  );
-};
-
-export const useMaterial = () => {
-  const context = useContext(MaterialContext);
-  if (!context) {
-    throw new Error("useMaterialType must be used within a MaterialProvider");
-  }
-  return context;
 };

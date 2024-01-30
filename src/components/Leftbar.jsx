@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Button from "./Button";
 import MaterialDropdown from "./MaterialDropdown";
+import ColourPicker from "./ColourPicker";
+import { useBackgroundColour } from "./Context";
 
 const Leftbar = () => {
+  const { backgroundColour, setBackgroundColour } = useBackgroundColour();
   const handleClick = () => {
     window.location.reload();
   };
@@ -18,10 +21,12 @@ const Leftbar = () => {
         <label>Keep Resolution</label>
         <input type="checkbox" id="keepResolutionCheckbox" />
       </div>
-      <div class="control-group">
-        <label>Background Color:</label>
-        <input type="color" id="backgroundColorPicker" />
-      </div>
+      <ColourPicker
+        id="backgroundColourPicker"
+        label="Background Colour:"
+        value={backgroundColour}
+        setValue={(value) => setBackgroundColour(value)}
+      />
       <div class="control-group">
         <MaterialDropdown />
       </div>

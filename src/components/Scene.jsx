@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import { useFlowerParameters, useMaterial } from "./Context";
+import {
+  useBackgroundColour,
+  useFlowerParameters,
+  useMaterial,
+} from "./Context";
 import { Canvas } from "@react-three/fiber";
 import {
   Stats,
@@ -12,12 +16,14 @@ import FlowerGeometry from "./FlowerGeometry";
 const Scene = () => {
   const { flowerParams } = useFlowerParameters();
   const { materialType } = useMaterial();
+  const { backgroundColour } = useBackgroundColour();
 
   return (
     <div class="webgl" className="absolute top-0 left-0 z-10 w-full h-full">
       <Canvas
+        style={{ background: backgroundColour }}
         camera={{ fov: 75, near: 0.1, far: 8000, position: [0, 0, 550] }}
-        gl={{ antialias: false, alpha: false, powerPreference: "default" }}
+        gl={{ antialias: false, alpha: true, powerPreference: "default" }}
         flat
       >
         <ambientLight intensity={0.5} />
@@ -27,7 +33,7 @@ const Scene = () => {
           <GizmoViewport />
         </GizmoHelper>
         <Stats />
-        <OrbitControls enableDamping dampingFactor={0.08} />
+        <OrbitControls enableDamping dampingFactor={0.25} />
       </Canvas>
     </div>
   );
