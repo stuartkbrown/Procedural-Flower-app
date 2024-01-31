@@ -3,21 +3,26 @@ import Button from "./Button";
 import MaterialDropdown from "./MaterialDropdown";
 import ColourPicker from "./ColourPicker";
 import { useBackgroundColour } from "./Context";
+import { useRandomizeParams } from "../hooks/useRandomiseParams";
 
 const Leftbar = () => {
   const { backgroundColour, setBackgroundColour } = useBackgroundColour();
-  const handleClick = () => {
+  const refresh = () => {
     window.location.reload();
+  };
+  const randomizeParams = useRandomizeParams();
+  const randomise = () => {
+    randomizeParams();
   };
   return (
     <div class="controls">
       <div class="controls-heading">Controls</div>
       <div class="control-group">
-        <Button onClick={handleClick}>Reset Default</Button>
+        <Button onClick={refresh}>Reset Default</Button>
         <button id="resetCameraButton">Reset Camera</button>
       </div>
       <div class="control-group">
-        <button id="randomiseButton">Randomise</button>
+        <Button onClick={randomise}>Randomise</Button>
         <label>Keep Resolution</label>
         <input type="checkbox" id="keepResolutionCheckbox" />
       </div>
