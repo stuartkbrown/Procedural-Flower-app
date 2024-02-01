@@ -30,6 +30,12 @@ export const MainProvider = ({ children }) => {
   const [backgroundColour, setBackgroundColour] = useState("#000000");
 
   const updateParam = (paramName, value) => {
+    const isCheckboxChecked = document.getElementById(`${paramName}Check`)
+      .checked;
+    if (isCheckboxChecked) {
+      return;
+    }
+
     setFlowerParams((prevState) => ({
       ...prevState,
       [paramName]: value,

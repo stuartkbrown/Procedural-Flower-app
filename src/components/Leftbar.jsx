@@ -3,16 +3,16 @@ import Button from "./Button";
 import MaterialDropdown from "./MaterialDropdown";
 import ColourPicker from "./ColourPicker";
 import { useBackgroundColour } from "./Context";
-import { useRandomizeParams } from "../hooks/useRandomiseParams";
+import { useRandomiseParams } from "../hooks/useRandomiseParams";
 
 const Leftbar = () => {
   const { backgroundColour, setBackgroundColour } = useBackgroundColour();
   const refresh = () => {
     window.location.reload();
   };
-  const randomizeParams = useRandomizeParams();
+  const randomiseParams = useRandomiseParams();
   const randomise = () => {
-    randomizeParams();
+    randomiseParams();
   };
   return (
     <div class="controls">
@@ -28,7 +28,7 @@ const Leftbar = () => {
       </div>
       <ColourPicker
         id="backgroundColourPicker"
-        label="Background Colour:"
+        label="Background Colour"
         value={backgroundColour}
         setValue={(value) => setBackgroundColour(value)}
       />

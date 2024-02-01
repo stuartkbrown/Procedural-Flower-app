@@ -1,11 +1,11 @@
 import { useFlowerParameters } from "../components/Context";
 
-export const useRandomizeParams = () => {
+export const useRandomiseParams = () => {
   const { updateParam } = useFlowerParameters();
 
-  const randomizeParams = () => {
-    updateParam("flowerColour1", randomColor());
-    updateParam("flowerColour2", randomColor());
+  const randomiseParams = () => {
+    updateParam("flowerColour1", randomColour());
+    updateParam("flowerColour2", randomColour());
     updateParam("verticalResolution", Math.floor(randomFloat(10, 100, 10)));
     updateParam("radialResolution", Math.floor(randomFloat(45, 720, 45)));
     updateParam("petalNumber", Math.floor(randomFloat(1, 20, 1)));
@@ -19,7 +19,7 @@ export const useRandomizeParams = () => {
     updateParam("bumpNumber", Math.floor(randomFloat(0, 20, 1)));
   };
 
-  return randomizeParams;
+  return randomiseParams;
 };
 
 const randomFloat = (min, max, step) => {
@@ -28,11 +28,11 @@ const randomFloat = (min, max, step) => {
   return parseFloat(randomValue.toFixed(2));
 };
 
-const randomColor = () => {
+const randomColour = () => {
   const letters = "0123456789ABCDEF";
-  let color = "#";
+  let colour = "#";
   for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+    colour += letters[Math.floor(Math.random() * 16)];
   }
-  return color;
+  return colour;
 };

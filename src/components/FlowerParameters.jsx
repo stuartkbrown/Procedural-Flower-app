@@ -28,14 +28,14 @@ const FlowerParameters = () => {
 
       {/* Color pickers */}
       <ColourPicker
-        id="flowerColourPicker"
+        id="flowerColour1"
         label="Flower Colour 1"
         value={flowerColour1}
         setValue={(value) => updateParam("flowerColour1", value)}
       />
 
       <ColourPicker
-        id="flowerColourPicker2"
+        id="flowerColour2"
         label="Flower Colour 2"
         value={flowerColour2}
         setValue={(value) => updateParam("flowerColour2", value)}
