@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import {
+  useAxesVisibility,
   useBackgroundColour,
   useFlowerParameters,
   useMaterial,
@@ -12,11 +13,13 @@ import {
   GizmoViewport,
 } from "@react-three/drei";
 import FlowerGeometry from "./FlowerGeometry";
+import { AxesHelper } from "three";
 
 const Scene = () => {
   const { flowerParams } = useFlowerParameters();
   const { materialType } = useMaterial();
   const { backgroundColour } = useBackgroundColour();
+  const { axesVisible } = useAxesVisibility();
 
   return (
     <div class="webgl" className="absolute top-0 left-0 z-10 w-full h-full">
@@ -29,6 +32,7 @@ const Scene = () => {
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
         <FlowerGeometry parameters={flowerParams} materialType={materialType} />
+        {axesVisible && <axesHelper args={[500]} />}
         <GizmoHelper alignment="bottom-left" margin={[80, 80]}>
           <GizmoViewport />
         </GizmoHelper>

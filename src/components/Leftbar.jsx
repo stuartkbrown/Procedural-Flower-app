@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Button from "./Button";
 import MaterialDropdown from "./MaterialDropdown";
 import ColourPicker from "./ColourPicker";
-import { useBackgroundColour } from "./Context";
+import { useAxesVisibility, useBackgroundColour } from "./Context";
 import { useRandomiseParams } from "../hooks/useRandomiseParams";
 
 const Leftbar = () => {
@@ -14,6 +14,7 @@ const Leftbar = () => {
   const randomise = () => {
     randomiseParams();
   };
+  const { toggleAxesHelper } = useAxesVisibility();
   return (
     <div class="controls">
       <div class="controls-heading">Controls</div>
@@ -36,7 +37,7 @@ const Leftbar = () => {
         <MaterialDropdown />
       </div>
       <div class="control-group">
-        <button id="toggleAxesButton">Cartesian Axes</button>
+        <Button onClick={toggleAxesHelper}>Cartesian Axes</Button>
         <button id="toggleRadialAxesButton">Radial Axes</button>
       </div>
       <div class="controls-heading">Presets</div>

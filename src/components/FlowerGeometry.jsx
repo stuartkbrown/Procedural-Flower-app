@@ -1,3 +1,4 @@
+import { Bounds } from "@react-three/drei";
 import React, { useRef, useEffect, useMemo, useCallback } from "react";
 import { DoubleSide } from "three";
 import * as THREE from "three";
@@ -48,7 +49,6 @@ const FlowerGeometry = ({ parameters, materialType }) => {
       material = <meshBasicMaterial vertexColors side={DoubleSide} />;
   }
 
-  // Use <points> for points material
   return (
     <group>
       {materialType === "points" ? (

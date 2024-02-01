@@ -3,10 +3,12 @@ import React, { createContext, useContext, useState } from "react";
 const FlowerParametersContext = createContext();
 const MaterialContext = createContext();
 const BackgroundColourContext = createContext();
+const AxesVisibilityContext = createContext();
 
 export const useFlowerParameters = () => useContext(FlowerParametersContext);
 export const useMaterial = () => useContext(MaterialContext);
 export const useBackgroundColour = () => useContext(BackgroundColourContext);
+export const useAxesVisibility = () => useContext(AxesVisibilityContext);
 
 export const MainProvider = ({ children }) => {
   const [flowerParams, setFlowerParams] = useState({
@@ -42,13 +44,23 @@ export const MainProvider = ({ children }) => {
     }));
   };
 
+  const [axesVisible, setAxesVisible] = useState(false);
+
+  const toggleAxesHelper = () => {
+    setAxesVisible((prevVisible) => !prevVisible);
+  };
+
   return (
     <FlowerParametersContext.Provider value={{ flowerParams, updateParam }}>
       <MaterialContext.Provider value={{ materialType, setMaterialType }}>
         <BackgroundColourContext.Provider
           value={{ backgroundColour, setBackgroundColour }}
         >
-          {children}
+          <AxesVisibilityContext.Provider
+            value={{ axesVisible, toggleAxesHelper }}
+          >
+            {children}
+          </AxesVisibilityContext.Provider>
         </BackgroundColourContext.Provider>
       </MaterialContext.Provider>
     </FlowerParametersContext.Provider>
