@@ -1,18 +1,13 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import Button from "./Button";
 import MaterialDropdown from "./MaterialDropdown";
 import ColourPicker from "./ColourPicker";
 import { useAxesVisibility, useBackgroundColour } from "./Context";
-import { useRandomiseParams } from "../hooks/useRandomiseParams";
 
 const Leftbar = () => {
   const { backgroundColour, setBackgroundColour } = useBackgroundColour();
   const refresh = () => {
     window.location.reload();
-  };
-  const randomiseParams = useRandomiseParams();
-  const randomise = () => {
-    randomiseParams();
   };
   const { toggleAxesHelper } = useAxesVisibility();
   return (
@@ -20,18 +15,13 @@ const Leftbar = () => {
       <div class="controls-heading">Controls</div>
       <div class="control-group">
         <Button onClick={refresh}>Reset Default</Button>
-        <button id="resetCameraButton">Reset Camera</button>
-      </div>
-      <div class="control-group">
-        <Button onClick={randomise}>Randomise</Button>
-        <label>Keep Resolution</label>
-        <input type="checkbox" id="keepResolutionCheckbox" />
       </div>
       <ColourPicker
         id="backgroundColourPicker"
         label="Background Colour"
         value={backgroundColour}
         setValue={(value) => setBackgroundColour(value)}
+        showCheckbox={false}
       />
       <div class="control-group">
         <MaterialDropdown />

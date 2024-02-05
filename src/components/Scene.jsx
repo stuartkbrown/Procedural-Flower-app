@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React from "react";
 import {
   useAxesVisibility,
   useBackgroundColour,
@@ -13,7 +13,6 @@ import {
   GizmoViewport,
 } from "@react-three/drei";
 import FlowerGeometry from "./FlowerGeometry";
-import { AxesHelper } from "three";
 
 const Scene = () => {
   const { flowerParams } = useFlowerParameters();

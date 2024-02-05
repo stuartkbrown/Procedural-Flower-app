@@ -23,9 +23,7 @@ const FlowerParameters = () => {
   } = flowerParams;
 
   return (
-    <div class="controls-right">
-      <div class="controls-heading">Parameters</div>
-
+    <>
       {/* Color pickers */}
       <ColourPicker
         id="flowerColour1"
@@ -151,7 +149,7 @@ const FlowerParameters = () => {
         max={20}
         step={1}
       />
-    </div>
+    </>
   );
 };
 
